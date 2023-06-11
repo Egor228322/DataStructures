@@ -81,3 +81,5 @@ myLinkedList.prepend(1);
 console.log(myLinkedList.insert(2,99));
 
 console.log(myLinkedList);
+
+console.log('Hello');
