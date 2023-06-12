@@ -137,17 +137,20 @@ class LinkedList {
         this.tail = this.head;
         this.length = 1;
     }
+
     append(value) {
       const newNode = {
         value: value,
         next: null
       }
+
       console.log(newNode)
       this.tail.next = newNode;
       this.tail = newNode;
       this.length++;
       return this;
     }
+
     prepend(value) {
       const newNode = {
         value: value,
@@ -158,6 +161,7 @@ class LinkedList {
       this.length++;
       return this;
     }
+
     printList() {
       const array = [];
       let currentNode = this.head;
@@ -167,6 +171,7 @@ class LinkedList {
       }
       return array;
     }
+
     insert(index, value){
       //Check for proper parameters;
       if(index >= this.length) {
@@ -185,16 +190,15 @@ class LinkedList {
       this.length++;
       return this.printList();
     }
+
     traverseToIndex(index) {
-      //Check parameters
-      let counter = 0;
       let currentNode = this.head;
-      while(counter !== index){
-        currentNode = currentNode.next;
-        counter++;
-      }
-      return currentNode;
+        for (let i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+        return currentNode;
     }
+
     remove(index) {
       // Check Parameters      
       const leader = this.traverseToIndex(index-1);
@@ -203,6 +207,7 @@ class LinkedList {
       this.length--;
       return this.printList();
     }
+
     reverse() {
         
         if(!this.head.next) return this.head;
@@ -214,7 +219,9 @@ class LinkedList {
         while (second) {
           let third = second.next;
           second.next = first;
+          console.log(second.next);
           first = second;
+          console.log(third);
           second = third;
         }
         this.head.next = null;
@@ -232,6 +239,8 @@ class LinkedList {
   myLinkedList.append(6)
   myLinkedList.append(7)
   myLinkedList.prepend(1)
-  console.log(myLinkedList.printList());
+ /*  console.log(myLinkedList.printList());
   console.log(myLinkedList.reverse());
-  console.log(myLinkedList);
+  console.log(myLinkedList); */
+
+  console.log(myLinkedList.reverse());
