@@ -9,6 +9,12 @@
             next: {
                 value:16,
                 next: null
+            },
+            previous : {
+                value: 10,
+                next: {
+                    val
+                }
             }
         }
     }
@@ -57,18 +63,45 @@ class LinkedList {
     }
     
     insert(index, value) {
-        let currentNode = this.head;
-        for (let i = index; i < this.length; i++) {
-            currentNode = currentNode.next;
+
+        if (index >= this.length) {
+           return this.append(value);
         }
+
         const newNode = {
             value: value,
             next: this.head
         }
-        let temp = currentNode;
-        currentNode = newNode;
-        currentNode.next = temp;
-        return this;
+        
+        const leader = this.traverse(index-1);
+        const holdingPointer = leader.next;
+        leader.next = newNode;
+        newNode.next = holdingPointer;
+        this.length++;
+        return this.printList();
+    }
+
+    traverse (index) {
+        let currentNode = this.head;
+        for (let i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+        console.log(currentNode);
+        return currentNode;
+    }
+
+    delete(index) {
+
+
+        const leader = this.traverse(index-1);
+        const currentNode = leader.next;
+        const newNode = currentNode.next;
+
+        leader.next = newNode;
+        this.length--;
+        
+        return this.printList();
+
     }
     
     
@@ -78,8 +111,10 @@ const myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
 myLinkedList.prepend(1);
-console.log(myLinkedList.insert(2,99));
+myLinkedList.traverse(2);
 
-console.log(myLinkedList);
 
-console.log('Hello');
+myLinkedList.insert(2,99);
+console.log(myLinkedList.insert(2,88));
+console.log(myLinkedList.delete(2));
+console.log(myLinkedList.delete(2));
