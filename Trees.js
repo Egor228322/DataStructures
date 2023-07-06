@@ -129,24 +129,46 @@ class BinaryTree {
         }
     
     
-    lookUp (value) {
-        if (this.root == null) { return false;
-        } else {
-            let currentNode = this.root;
-            while (true) {
-                if (value < currentNode.value) {
-                    currentNode = currentNode.left;
-                } else if (value > currentNode.value) {
-                    currentNode = currentNode.right;
-                } else if (currentNode.value == value) {
-                    return true;
-                }
-                return false;
+        lookUp(val) {
+          if (!this.root) return false;
+          else {
+              let currentNode = this.root;
+              while (currentNode) {
+                  if (val > currentNode.value) {
+                      currentNode = currentNode.right;
+                  } else if (val < currentNode.value) {
+                      currentNode = currentNode.left;
+                  } else if (val == currentNode.value) {
+                      return true;
+                  }
+              }
+          }
+          return false;
+      }
+
+      BFS () {
+        
+        let currentNode = this.root;
+        let list = [];
+        let queue = [];
+        queue.push(currentNode);
+        while (queue.length > 0) {
+            currentNode = queue.shift();
+            console.log(queue)
+            console.log(currentNode.value);
+            list.push(currentNode.value);
+            
+            if (currentNode.left) {
+                queue.push(currentNode.left);
             }
+            
+            if (currentNode.right) {
+                queue.push(currentNode.right);
+            }
+            
         }
-
-
-    }
+        return list;
+      }
 }
 
 const tree = new BinaryTree();
@@ -163,3 +185,10 @@ console.log(tree);
 
 console.log(tree.lookUp(7));
 
+//    4     20
+//  1   6  15  270
+//
+//
+//
+//
+//
