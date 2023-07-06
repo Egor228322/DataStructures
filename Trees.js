@@ -169,6 +169,26 @@ class BinaryTree {
         }
         return list;
       }
+
+      BFSRecursive(queue, list) {
+        if (queue.length == 0) {
+          return list;
+        }
+
+        let currentNode = queue.shift();
+        list.push(currentNode.value);
+
+        if (currentNode.left) {
+            queue.push(currentNode.left);
+        }
+        
+        if (currentNode.right) {
+            queue.push(currentNode.right);
+        }
+        
+        return this.BFSRecursive(queue, list);
+
+      }
 }
 
 const tree = new BinaryTree();
@@ -180,6 +200,7 @@ tree.insert(6);
 tree.insert(15);
 tree.insert(170);
 tree.remove(20);
+console.log(tree.BFSRecursive([tree.root], []));
 
 console.log(tree);
 
