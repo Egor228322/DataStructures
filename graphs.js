@@ -124,3 +124,44 @@ console.log(myGraph);
 //Excellent representaion of realtionships between data
 //Scaling is hard because graphs become very complex as the number of nodes increases 
 
+//Has Path in a directional, acyclic graph
+
+//Depth First
+
+const hasPathD = function(graph, startVertex, destinationVertex) {
+    if (startVertex == destinationVertex) {
+        return true;
+    }
+
+
+    for (let neighbour of graph[startVertex]) {
+        if (hasPathD(graph, neighbour, destinationVertex) == true) {
+            return true;
+        } 
+    }
+     
+    return false;
+}
+
+//Breadth First
+
+const hasPathB = function(graph, startVertex, destinationVertex) {
+
+    const queue = [];
+    queue.push(startVertex);
+    
+    while (queue.length > 0) {
+        const vertex = queue.shift();
+
+        if (vertex == destinationVertex) return true;
+        for (let neighbour of graph[vertex]) {
+            queue.push(neighbour);
+        }
+
+    }
+
+    return false;
+
+
+}
+
