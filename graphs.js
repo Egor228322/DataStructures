@@ -165,3 +165,46 @@ const hasPathB = function(graph, startVertex, destinationVertex) {
 
 }
 
+//Undirected Graph DFS
+
+const undirectedPath = function (edges, nodeA, nodeB) {
+    const graph = buildGraph(edges);
+    return hasPath (graph, nodeA, nodeB, new Set());
+}
+
+function hasPath(graph, src, dst, visited) {
+    if (visited.has(src)) return false;
+    if (src == dst) {
+        return true;
+    }
+
+    visited.add(src);
+
+    for (let neighbour of graph[src]) {
+        if (hasPath(graph, neighbour, dst) == true) {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+function buildGraph(edges) {
+    const graph = {}
+
+    for (let edge of edges) {
+        const [a ,b] = edge;
+        if (!graph[a]) {
+            graph[vertex] = [b];
+        }
+        if (!graph[b]) {
+            graph[vertex] = [a];
+        }
+        graph[a].push(b);
+        graph[b].push(a);
+        
+    }
+
+    return graph;    
+}
