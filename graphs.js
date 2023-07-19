@@ -55,39 +55,69 @@ const graphs4 = {
 
 class Graph {
     constructor() {
-        this.numberOfNodes = 0;
-        this.adjacentList = {};
+        this.adjList = new Map();
     }
 
-    addVertex(node) {
-        this.adjacentList[node] = [];
-        this.numberOfNodes++;
-        return this;
+    addVertex(vertex) {
+        if (!this.adjList.has(vertex)) {
+            this.adjList.set(vertex, []);
+        }
     }
 
-    addedge(node1, node2) {
-        this.adjacentList[node1].push(node2);
-        this.adjacentList[node2].push(node1);
-        return this;
+    addedge(vertex1, vertex2) {
+        this.addVertex(vertex1);
+        this.addVertex(vertex2);
+
+        this.adjList.get(vertex1).push(vertex2);
+        this.adjList.get(vertex2).push(vertex1);
     }
+
+    dfs(startVertex, visited = new Set(), result = []) {
+        visited.add(startVertex);
+        result.push(startVertex);
+
+        for (const neighbour of this.adjList.get(startVertex)) {
+            if (!visited.has(neighbour)) {
+                this.dfs(neighbour, visited, result);
+            }
+        }
+
+        return result;
+
+    }
+
+    bfs (startVertex) {
+        const visited = new Set();
+        const queue = [];
+        const result = [];
+
+
+        visited.add(startVertex);
+        queue.push(startVertex);
+        
+        while (queue.length > 0) {
+            const currentVertex = queue.shift();
+            result.push(currentVertex);
+
+            for (let neighbour of this.adjList.get(currentVertex)) {
+                if (!visited.has(neighbour)) {
+                    visited.add(neighbour);
+                    queue.push(neighbour);
+                }
+            }
+        }
+        return result;
+
+
+    }
+
+
+
+
+
 }
 
 const myGraph = new Graph();
-myGraph.addVertex('0');
-myGraph.addVertex('1');
-myGraph.addVertex('2');
-myGraph.addVertex('3');
-myGraph.addVertex('4');
-myGraph.addVertex('5');
-myGraph.addVertex('6');
-myGraph.addedge('3', '1');
-myGraph.addedge('3', '4');
-myGraph.addedge('4', '2');
-myGraph.addedge('4', '5');
-myGraph.addedge('1', '2');
-myGraph.addedge('1', '0');
-myGraph.addedge('0', '2');
-myGraph.addedge('6', '5');
 
 console.log(myGraph);
 

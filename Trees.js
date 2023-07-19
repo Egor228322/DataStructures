@@ -126,10 +126,10 @@ class BinaryTree {
             return true;
             }
           }
-        }
+    }
     
     
-        lookUp(val) {
+    lookUp(val) {
           if (!this.root) return false;
           else {
               let currentNode = this.root;
@@ -144,9 +144,9 @@ class BinaryTree {
               }
           }
           return false;
-      }
+    }
 
-      BFS () {
+    BFS () {
         
         let currentNode = this.root;
         let list = [];
@@ -168,9 +168,9 @@ class BinaryTree {
             
         }
         return list;
-      }
+    }
 
-      BFSRecursive(queue, list) {
+    BFSRecursive(queue, list) {
         if (queue.length == 0) {
           return list;
         }
@@ -188,7 +188,53 @@ class BinaryTree {
         
         return this.BFSRecursive(queue, list);
 
-      }
+    }
+
+    DFSInOrder() {
+      return traverseInOrder(this.root, []);
+    }
+
+    DFSPostOrder() {
+      return traversePostOrder(this.root, []);
+    }
+
+    DFSPreOrder() {
+      return traversePreOrder(this.root, []);
+    }
+}
+
+
+function traversePreOrder(node, list){
+  list.push(node.value);
+  if(node.left) {
+    traversePreOrder(node.left, list);
+  }
+  if(node.right) {
+    traversePreOrder(node.right, list);
+  }
+  return list;
+}
+
+function traverseInOrder(node, list){
+  if(node.left) {
+    traverseInOrder(node.left, list);
+  }
+  list.push(node.value);
+  if(node.right) {
+    traverseInOrder(node.right, list);
+  }
+  return list;
+}
+
+function traversePostOrder(node, list){
+  if(node.left) {
+    traversePostOrder(node.left, list);
+  }
+  if(node.right) {
+    traversePostOrder(node.right, list);
+  }
+  list.push(node.value);
+  return list;
 }
 
 const tree = new BinaryTree();
@@ -199,13 +245,15 @@ tree.insert(1);
 tree.insert(6);
 tree.insert(15);
 tree.insert(170);
-tree.remove(20);
-console.log(tree.BFSRecursive([tree.root], []));
+console.log(tree.DFSInOrder());
+console.log(tree.DFSPreOrder());
+console.log(tree.DFSPostOrder());
 
 console.log(tree);
 
 console.log(tree.lookUp(7));
-
+//
+//       9
 //    4     20
 //  1   6  15  270
 //
