@@ -208,3 +208,34 @@ function buildGraph(edges) {
 
     return graph;    
 }
+
+
+//
+
+const connectedComponentsCount = function(graph) {
+
+    const visted = new Set();
+    let count = 0;
+    
+    
+    for (let node in graph) {
+        if (traverse(graph, node, visted) == true) {
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+function traverse (graph, node, visited) {
+    if (visited.has(String(node))) return false;
+
+    visited.add(String(node));
+
+    for (let neighbour of graph[node]) {
+        traverse(graph, neighbour, visited);
+    }
+
+    return true;
+
+}
